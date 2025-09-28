@@ -20,15 +20,16 @@ export interface DateIdea {
 
 export interface Match {
   id: number;
-  user: User;
-  lastMessage: string;
+  user1Id: number;
+  user2Id: number;
+  lastMessage?: string;
   timestamp: string;
-  unread: boolean;
-  chatHistory: Message[];
+  unread?: boolean;
 }
 
 export interface Message {
   id: number;
+  matchId: number;
   senderId: number;
   text: string;
   timestamp: string;

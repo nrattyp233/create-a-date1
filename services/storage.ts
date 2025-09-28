@@ -49,6 +49,23 @@ export function setCurrentUser(user: User | null) {
 export function updateCurrentUser(patch: Partial<User>) {
   const u = getCurrentUser();
   if (!u) return;
+  
+  const users = getUsers();
+  const index = users.findIndex(user => user.id === u.id);
+  if (index >= 0) {
+    users[index] = { ...users[index], ...patch };
+    setJSON(KEYS.users, users);
+  }
+  
+  setCurrentUser({ ...u, ...patch });
+}
+
+export function getMessages(matchId: number): Message[] {
+  const matches = getJSON<Match[]>(KEYS.matches, []);
+  const messages = getJSON<Message[]>('cad.messages', []);
+  return messages.filter(m => m.matchId === matchId);
+}
+  if (!u) return;
   const next = { ...u, ...patch } as User;
   setCurrentUser(next);
 }
